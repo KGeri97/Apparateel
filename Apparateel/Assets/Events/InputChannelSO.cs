@@ -10,9 +10,14 @@ using System;
 [CreateAssetMenu(menuName = "Events/Click Event Channel")]
 public class InputChannelSO : ScriptableObject
 {
-    public Action<GameObject> OnClickEventRaised;
+    public event EventHandler<OnClickEventArgs> OnClick;
 
-    public void RaiseClickEvent(GameObject gameObject) {
-        OnClickEventRaised?.Invoke(gameObject);
+    public void RaiseClickEvent(object sender, Clickable clickedObject) {
+        OnClick?.Invoke(sender, new OnClickEventArgs { 
+            ClickedObject = clickedObject
+        });
+    }
+    public class OnClickEventArgs : EventArgs {
+        public Clickable ClickedObject;
     }
 }

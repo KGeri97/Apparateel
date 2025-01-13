@@ -10,7 +10,7 @@ public class CropInfection : MonoBehaviour
     private SOCropGrowthData _growthData;
     private CropGrowth _cropGrowth;
     private Timer _infectionTimer;
-    public Timer InfectionTimer => _infectionTimer;
+    //public Timer InfectionTimer => _infectionTimer;
 
     private bool _isInfected = false;
     public bool IsInfected => _isInfected;
@@ -18,16 +18,12 @@ public class CropInfection : MonoBehaviour
     private float _infectionProgress = 0;
     public float InfectionProgress => _infectionProgress;
 
+    public float CurrentInfectionPriceModifier => _infectionData.PriceModifier * InfectionProgress;
+
     /// <summary>
     /// The time it takes for the infection to fully develop in seconds
     /// </summary>
     private float _infectionDevelopmentTime;
-
-    private static System.Random _rng;
-
-    private void Awake() {
-        _rng = new System.Random();
-    }
 
     private void Start() {
         SOCropData cropData = GetComponent<ICrop>().CropData;
@@ -54,7 +50,7 @@ public class CropInfection : MonoBehaviour
             return;
 
         //Checking if crop gets infected. If not, return
-        int chance = _rng.Next(0,100) + 1;
+        int chance = RNG.Instance.Next(0,100) + 1;
         //Debug.Log($"Chance: {chance}");
         if (chance > _infectionData.InfectionChance * 100) {
             return;

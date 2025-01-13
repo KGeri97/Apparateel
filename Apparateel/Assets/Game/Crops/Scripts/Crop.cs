@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace Apparateel.Crop {
     [RequireComponent(typeof(CropGrowth))]
@@ -16,27 +17,38 @@ namespace Apparateel.Crop {
         private Clickable _clickable;
 
         private CropGrowth _cropGrowth;
+        private CropInfection _cropInfection;
 
         public bool IsGrowing => _cropGrowth.IsGrowing;
 
-
         private void OnEnable() {
-            _clickable.OnClick += OnClick;
+            _clickable.OnClick += OnClickEvent;
         }
 
         private void OnDisable() {
-            _clickable.OnClick -= OnClick;
+            _clickable.OnClick -= OnClickEvent;
         }
 
         private void Start() {
             _cropGrowth = GetComponent<CropGrowth>();
+            _cropInfection = GetComponent<CropInfection>();
         }
 
-        private void Update() {
+        private void OnClickEvent(object sender, EventArgs e) {
+            if (IsGrowing)
+                return;
+
+            MoneyManager.Instance.ItemSold(GetCropValue());
+            Destroy(gameObject);
         }
 
-        private void OnClick() {
-            Debug.Log("Potatoed");
+        private float GetCropValue() {
+            float baseSellPrice = _cropData.MoneyData.SellPrices[0].SellPrice;
+            float finalSellPrice = baseSellPrice;
+
+            if (_cropInfection.IsInfected)
+                finalSellPrice *= _cropInfection.CurrentInfectionPriceModifier;
+            return finalSellPrice ;
         }
 
     }

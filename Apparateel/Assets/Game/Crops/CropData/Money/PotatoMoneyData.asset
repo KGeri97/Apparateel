@@ -15,11 +15,11 @@ MonoBehaviour:
   BuyPrice: 0
   SellPrices:
   - Quality: 0
-    SellPrice: 0
+    SellPrice: 2.5
   - Quality: 1
-    SellPrice: 0
+    SellPrice: 1.5
   - Quality: 2
-    SellPrice: 0
+    SellPrice: 1
   - Quality: 3
-    SellPrice: 0
+    SellPrice: 0.5
   CropQuality: 0
