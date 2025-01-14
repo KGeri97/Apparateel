@@ -22,8 +22,12 @@ public class MoneyManager : MonoBehaviour
     }
 
     public void ItemSold(float itemValue) {
-        Debug.Log($"{itemValue} {_money}");
         _money += itemValue;
+        OnMoneyChanged?.Invoke(this, _money);
+    }
+
+    public void ItemPurchased(float itemValue) {
+        _money -= itemValue;
         OnMoneyChanged?.Invoke(this, _money);
     }
 

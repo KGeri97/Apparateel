@@ -6,8 +6,7 @@ public class DirtMound : MonoBehaviour
     private Clickable _clickable;
 
     [SerializeField]
-    private GameObject _cropPrefab;
-    private ICrop _crop;
+    private Crop _cropPrefab;
 
     private bool _isOccupied = false;
 
@@ -26,7 +25,11 @@ public class DirtMound : MonoBehaviour
         if (_isOccupied)
             return;
 
-        _crop = Instantiate(_cropPrefab, transform.position, Quaternion.identity, transform).GetComponent<ICrop>();
+        if (MoneyManager.Instance.Money < _cropPrefab.CropData.MoneyData.BuyPrice)
+            return;
+
+        MoneyManager.Instance.ItemPurchased(_cropPrefab.CropData.MoneyData.BuyPrice);
+        ICrop _crop = Instantiate(_cropPrefab, transform.position, Quaternion.identity, transform);
         _crop.SetDirtMound(this);
         _isOccupied = true;
     }
