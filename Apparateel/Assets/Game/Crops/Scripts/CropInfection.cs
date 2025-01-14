@@ -50,7 +50,7 @@ public class CropInfection : MonoBehaviour
             return;
 
         //Checking if crop gets infected. If not, return
-        int chance = RNG.Instance.Next(0,100) + 1;
+        int chance = RNG.Next(0,100) + 1;
         //Debug.Log($"Chance: {chance}");
         if (chance > _infectionData.InfectionChance * 100) {
             return;

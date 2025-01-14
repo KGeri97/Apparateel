@@ -1,27 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
-public class RNG : MonoBehaviour
-{
-    public static RNG Instance;
 
-    private System.Random _rng;
+public static class RNG {
+    private static Random _rng = new Random();
 
-    private void Awake() {
-        _rng = new System.Random();
+    public static int Next(int minValue, int maxValue) {
+            return _rng.Next(minValue, maxValue);
     }
 
-    private void Start(){
-        if (Instance != null) {
-            Debug.LogError("There is already a MoneyManager Instance.");
-            return;
-        }
-
-        Instance = this;
+    public static void Reseed(int seed) {
+            _rng = new Random(seed);
     }
 
-    public int Next(int minValue, int maxValue) {
-        return _rng.Next(minValue, maxValue);
+    public static void Reseed() {
+            _rng = new Random();
     }
 }

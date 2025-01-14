@@ -7,7 +7,8 @@ public class MoneyManager : MonoBehaviour
 {
     public static MoneyManager Instance;
 
-    private float _money = 0;
+    [SerializeField]
+    private float _money;
     public float Money => _money;
 
     public event EventHandler<float> OnMoneyChanged;
@@ -27,10 +28,7 @@ public class MoneyManager : MonoBehaviour
     }
 
     private void Start(){
-        
-    }
-
-    private void Update() {
-
+        //Make sure the starting money is displayed correctly
+        OnMoneyChanged?.Invoke(this, _money);
     }
 }

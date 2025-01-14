@@ -8,5 +8,9 @@ namespace Apparateel.Crop {
         public SOCropData CropData { get; }
 
         public bool IsGrowing { get; }
+
+        public DirtMound Mound { get; }
+
+        public void SetDirtMound(DirtMound dirtMound);
     }
 }

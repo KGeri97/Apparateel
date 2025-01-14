@@ -19,6 +19,8 @@ namespace Apparateel.Crop {
         private CropGrowth _cropGrowth;
         private CropInfection _cropInfection;
 
+        public DirtMound Mound { get; private set; }
+
         public bool IsGrowing => _cropGrowth.IsGrowing;
 
         private void OnEnable() {
@@ -39,6 +41,7 @@ namespace Apparateel.Crop {
                 return;
 
             MoneyManager.Instance.ItemSold(GetCropValue());
+            Mound.RemoveCrop();
             Destroy(gameObject);
         }
 
@@ -49,6 +52,10 @@ namespace Apparateel.Crop {
             if (_cropInfection.IsInfected)
                 finalSellPrice *= _cropInfection.CurrentInfectionPriceModifier;
             return finalSellPrice ;
+        }
+
+        public void SetDirtMound(DirtMound dirtMound) {
+            Mound = dirtMound;
         }
 
     }
