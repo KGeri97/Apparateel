@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abb157f8010d4db42bf6536e535c89a9, type: 3}
   m_Name: PotatoMoneyData
   m_EditorClassIdentifier: 
-  BuyPrice: 0
+  BuyPrice: 1.2
   SellPrices:
   - Quality: 0
     SellPrice: 2.5
