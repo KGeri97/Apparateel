@@ -9,10 +9,13 @@ public class MoneyDashboardUpdater : MonoBehaviour
 
     private void Awake() {
         _textComponent = GetComponent<TMP_Text>();
+    }
+
+    private void Start() {
         MoneyManager.Instance.OnMoneyChanged += UpdateDashboard;
     }
 
-    private void OnDisable() {
+    private void OnDestroy() {
         MoneyManager.Instance.OnMoneyChanged -= UpdateDashboard;
     }
 

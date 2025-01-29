@@ -16,22 +16,24 @@ public class InputManager : MonoBehaviour
     }
 
     private void Update() {
-        if (Input.touchCount != 1)
-            return;
+        //if (Input.touchCount != 1)
+        //    return;
 
-        Touch touch = Input.touches[0];
+        //Touch touch = Input.touches[0];
 
-        Ray ray = Camera.main.ScreenPointToRay(touch.position);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit)) {
-            Transform hitTransform = hit.transform;
-            if (hitTransform == null)
-                return;
-            Clickable clickable = hitTransform.gameObject.GetComponent<Clickable>();
-            if (clickable == null)
-                return;
+        if (Input.GetMouseButtonDown(0)) {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit)) {
+                Transform hitTransform = hit.transform;
+                if (hitTransform == null)
+                    return;
+                Clickable clickable = hitTransform.gameObject.GetComponent<Clickable>();
+                if (clickable == null)
+                    return;
 
-            clickable.InvokeOnClick();
+                clickable.InvokeOnClick();
+            }
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Clickable : MonoBehaviour, IClickable {
+public class Clickable : MonoBehaviour {
     public event EventHandler OnClick;
 
     public void InvokeOnClick() {
