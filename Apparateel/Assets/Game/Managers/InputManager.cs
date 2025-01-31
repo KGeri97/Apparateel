@@ -1,10 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class InputManager : MonoBehaviour
 {
     public static InputManager Instance;
+
+    public event EventHandler<OnClickEventArgs> OnClick;
+    public class OnClickEventArgs {
+        public Clickable ClickedObject;
+    }
+
 
     private void Awake() {
         if (Instance != null) {
@@ -32,6 +39,7 @@ public class InputManager : MonoBehaviour
                 if (clickable == null)
                     return;
 
+                OnClick?.Invoke(this, new OnClickEventArgs{ ClickedObject = clickable});
                 clickable.InvokeOnClick();
             }
         }
