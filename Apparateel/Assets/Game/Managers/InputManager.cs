@@ -10,6 +10,7 @@ public class InputManager : MonoBehaviour
     public event EventHandler<OnClickEventArgs> OnClick;
     public class OnClickEventArgs {
         public Clickable ClickedObject;
+        public ClickableType ClickedType;
     }
 
 
@@ -39,7 +40,11 @@ public class InputManager : MonoBehaviour
                 if (clickable == null)
                     return;
 
-                OnClick?.Invoke(this, new OnClickEventArgs{ ClickedObject = clickable});
+                OnClick?.Invoke(this, new OnClickEventArgs{ 
+                    ClickedObject = clickable,
+                    ClickedType = clickable.ClickableType
+                });
+
                 clickable.InvokeOnClick();
             }
         }

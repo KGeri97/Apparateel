@@ -21,10 +21,11 @@ namespace Apparateel.Crop {
 
         [SerializeField]
         private GameObject _outline;
-        private CropInfoUI _cropInfoUI;
 
         private CropGrowth _cropGrowth;
+        public CropGrowth CropGrowth => _cropGrowth;
         private CropInfection _cropInfection;
+        public CropInfection CropInfection => _cropInfection;
 
         public DirtMound Mound { get; private set; }
 
@@ -32,19 +33,16 @@ namespace Apparateel.Crop {
 
         private void OnEnable() {
             _clickable.OnClick += OnClickEvent;
-            InputManager.Instance.OnClick += RemoveHighlight;
         }
 
         private void OnDisable() {
             _clickable.OnClick -= OnClickEvent;
-            InputManager.Instance.OnClick += RemoveHighlight;
         }
 
         private void Start() {
             _cropGrowth = GetComponent<CropGrowth>();
             _cropInfection = GetComponent<CropInfection>();
             _gameManager = GameManager.Instance;
-            _cropInfoUI = CropInfoUI.Instance;
         }
 
         private void OnClickEvent(object sender, EventArgs e) {
@@ -52,28 +50,12 @@ namespace Apparateel.Crop {
                 HarvestCrop();
                 return;
             }
-
-            switch (_gameManager.State) {
-                case GameState.Inspecting:
-                    Inspect();
-                    break;
-            }
         }
 
         private void HarvestCrop() {
             MoneyManager.Instance.ItemSold(GetCropValue());
             Mound.RemoveCrop();
             Destroy(gameObject);
-        }
-
-        private void Inspect() {
-            if (_outline.activeSelf) {
-                RemoveHighlight(null, new InputManager.OnClickEventArgs { ClickedObject = null });
-                return;
-            }
-
-            _outline.SetActive(true);
-            _cropInfoUI.AddCropToInvestigate(this);
         }
 
         private float GetCropValue() {
@@ -88,16 +70,6 @@ namespace Apparateel.Crop {
         public void SetDirtMound(DirtMound dirtMound) {
             Mound = dirtMound;
         }
-
-        private void RemoveHighlight(System.Object sender, InputManager.OnClickEventArgs e) {
-            if (e.ClickedObject == _clickable)
-                return;
-
-            _outline.SetActive(false);
-            _cropInfoUI.RemoveCropFromInvestigation(this);
-
-        }
-
     }
 
     public enum CropQualityClass {
