@@ -7,7 +7,8 @@ namespace Apparateel.Crop {
     [CreateAssetMenu(fileName = "CropGrowthData", menuName = "Scriptable Objects/CropGrowthData")]
     public class SOCropGrowthData : ScriptableObject {
         public int GrowthStages;
-        public float GrowthPeriodLength;
+        public float FullGrowthTime;
+        public float GrowthPeriodLength => FullGrowthTime / GrowthStages;
         public Vector3 BeginScale;
         public Vector3 EndScale;
         public AnimationCurve GrowthCurve;

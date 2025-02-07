@@ -58,12 +58,18 @@ namespace Apparateel.Crop {
             Destroy(gameObject);
         }
 
-        private float GetCropValue() {
+        public float GetCropValue() {
             float baseSellPrice = _cropData.MoneyData.SellPrices[0].SellPrice;
             float finalSellPrice = baseSellPrice;
 
-            if (_cropInfection.IsInfected)
-                finalSellPrice *= _cropInfection.CurrentInfectionPriceModifier;
+            //Infection modifier
+            if (_cropInfection.IsInfected && _cropInfection.CurrentInfectionPriceModifier != 0)
+                finalSellPrice -= baseSellPrice * _cropInfection.CurrentInfectionPriceModifier;
+
+            //Spray modifier
+            if (_cropInfection.IsSprayed)
+                finalSellPrice -= _cropInfection.SprayedWith.CropSellPriceReduction * _cropInfection.TimesSprayed;
+
             return finalSellPrice ;
         }
 

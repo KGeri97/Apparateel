@@ -15,6 +15,14 @@ public class CropInfection : MonoBehaviour
     private bool _isInfected = false;
     public bool IsInfected => _isInfected;
 
+    private bool _isSprayed = false;
+    public bool IsSprayed => _isSprayed;
+
+    private SOSpray _sprayedWith;
+    public SOSpray SprayedWith => _sprayedWith;
+    private int _timesSprayed = 0;
+    public int TimesSprayed => _timesSprayed;
+
     private float _infectionProgress = 0;
     public float InfectionProgress => _infectionProgress;
 
@@ -25,6 +33,11 @@ public class CropInfection : MonoBehaviour
     /// </summary>
     private float _infectionDevelopmentTime;
 
+    private float _naturalResistance;
+    public float NaturalResistance => _naturalResistance;
+    private float _chemicalProtection = 0;
+    public float ChemicalProtection => _chemicalProtection;
+
     private void Start() {
         SOCropData cropData = GetComponent<ICrop>().CropData;
 
@@ -32,7 +45,9 @@ public class CropInfection : MonoBehaviour
         _growthData = cropData.GrowthData;
         _cropGrowth = GetComponent<CropGrowth>();
 
-        _cropGrowth.OnCropGrowth += OnCropGrowthInfection;
+        _cropGrowth.OnCropGrowth += OnCropGrowth;
+
+        _naturalResistance = _infectionData.NaturalResistance;
     }
 
     private void Update() {
@@ -45,13 +60,20 @@ public class CropInfection : MonoBehaviour
         //Debug.Log(_infectionProgress);
     }
 
-    private void OnCropGrowthInfection(object sender, CropGrowth.OnCropGrowthEventArgs e) {
+    private void OnCropGrowth(object sender, CropGrowth.OnCropGrowthEventArgs e) {
+        ReduceChemicalProtection();
+        Infection();
+    }
+
+    private void Infection() {
         if (_isInfected)
             return;
 
         //Checking if crop gets infected. If not, return
-        int chance = RNG.Next(0,100) + 1;
-        //Debug.Log($"Chance: {chance}");
+        float chance = RNG.Next(0, 100) + 1;
+        chance += _naturalResistance * 100;
+        chance += _chemicalProtection * 100;
+
         if (chance > _infectionData.InfectionChance * 100) {
             return;
         }
@@ -68,5 +90,19 @@ public class CropInfection : MonoBehaviour
         _infectionTimer.Start();
     }
 
+    public void Spray(SOSpray sprayedWithData) {
+        _isSprayed = true;
+        _timesSprayed++;
+        _sprayedWith = sprayedWithData;
+        _chemicalProtection = sprayedWithData.MaxProtection;
+    }
 
+    private void ReduceChemicalProtection() {
+        if (!_isSprayed)
+            return;
+
+        _chemicalProtection -= _sprayedWith.ProtectionDecline;
+        if (_chemicalProtection < 0)
+            _chemicalProtection = 0;
+    }
 }

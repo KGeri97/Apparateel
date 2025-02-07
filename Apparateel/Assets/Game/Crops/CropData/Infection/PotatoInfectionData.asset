@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18a1d084011cd7d4eb9eb476dc1b8d97, type: 3}
   m_Name: PotatoInfectionData
   m_EditorClassIdentifier: 
+  NaturalResistance: 0.05
   InfectionChance: 0.2
   MinInfectionSeverity: 0.4
   MaxInfectionSeverity: 0.8
   InfectionDevelopmentTime: 0.4
-  PriceModifier: 0.8
+  PriceModifier: 0.2
   InfectionColor: {r: 0.7901807, g: 1, b: 0, a: 1}
   InfectionVisibility:
     serializedVersion: 2

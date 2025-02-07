@@ -77,7 +77,7 @@ public class CropGrowth : MonoBehaviour {
     }
 
     public float GetFullGrowthProgress() {
-        float totalGrowthTime = _growthData.GrowthPeriodLength * _growthData.GrowthStages;
+        float totalGrowthTime = _growthData.FullGrowthTime;
         float progress = (_currentGrowthStage - 1) * _growthData.GrowthPeriodLength + _growthPeriodTimer.Progress * _growthData.GrowthPeriodLength;
 
         //Debug.Log(progress / totalGrowthTime);
