@@ -751,6 +751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9215071f57f5b2e4db767695f2d5af7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _activeSprayEquipment: {fileID: 11400000, guid: 527ac87be2857d6499b7453a000fb403, type: 2}
   _sprayData: {fileID: 11400000, guid: c0b1434d5840010458c8c65c417ad3b8, type: 2}
 --- !u!1 &127567608
 GameObject:
@@ -1529,8 +1530,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 394372157}
+  - component: {fileID: 394372158}
   m_Layer: 0
-  m_Name: DirtMounds
+  m_Name: Parcel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1555,6 +1557,18 @@ Transform:
   - {fileID: 2079740161}
   m_Father: {fileID: 1323396110}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &394372158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394372156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f49240e031f2ef3489a74f78e5a31ddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &405733827
 GameObject:
   m_ObjectHideFlags: 0

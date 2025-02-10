@@ -1,15 +1,20 @@
 using UnityEngine;
 using Apparateel.Crop;
 
-public class DirtMound : MonoBehaviour
+public class DirtMound : MonoBehaviour, IHasOutline
 {
     private GameManager _gameManager;
+    private InputManager _inputManager;
     private Clickable _clickable;
+
+    [SerializeField]
+    private GameObject _outline;
 
     [SerializeField]
     private Crop _cropPrefab;
 
-    private ICrop _occupyingCrop;
+    private Crop _occupyingCrop;
+    public Crop OccupyingCrop => _occupyingCrop;
     private bool _isOccupied = false;
 
 
@@ -21,10 +26,13 @@ public class DirtMound : MonoBehaviour
 
     private void Start() {
         _gameManager = GameManager.Instance;
+        _inputManager = InputManager.Instance;
+        _inputManager.OnMouseHoverObjectChange += OnMouseHoverObjectChange;
     }
 
     private void OnDestroy() {
         _clickable.OnClick -= OnClickEvent;
+        _inputManager.OnMouseHoverObjectChange -= OnMouseHoverObjectChange;
     }
 
     private void OnClickEvent(object sender, System.EventArgs e) {
@@ -42,10 +50,9 @@ public class DirtMound : MonoBehaviour
         if (_isOccupied)
             return;
 
-        if (MoneyManager.Instance.Money < _cropPrefab.CropData.MoneyData.BuyPrice)
+        if (!MoneyManager.Instance.ItemPurchased(_cropPrefab.CropData.MoneyData.BuyPrice))
             return;
 
-        MoneyManager.Instance.ItemPurchased(_cropPrefab.CropData.MoneyData.BuyPrice);
         _occupyingCrop = Instantiate(_cropPrefab, transform.position, Quaternion.identity, transform);
         _occupyingCrop.SetDirtMound(this);
         _isOccupied = true;
@@ -58,5 +65,17 @@ public class DirtMound : MonoBehaviour
     public void RemoveCrop() {
         _occupyingCrop = null;
         _isOccupied = false;
+    }
+
+    public void ToggleOutline(bool active) {
+        _outline.SetActive(active);
+    }
+
+    private void OnMouseHoverObjectChange(object sender, InputManager.OnMouseHoverObjectChangeEventArgs e) {
+        if ((_gameManager.State == GameState.Planting || _gameManager.State == GameState.Fertilizing)
+            && e.Clickable == _clickable)
+            ToggleOutline(true);
+        else
+            ToggleOutline(false);
     }
 }

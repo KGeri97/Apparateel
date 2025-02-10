@@ -26,9 +26,13 @@ public class MoneyManager : MonoBehaviour
         OnMoneyChanged?.Invoke(this, _money);
     }
 
-    public void ItemPurchased(float itemValue) {
+    public bool ItemPurchased(float itemValue) {
+        if (_money < itemValue)
+            return false;
+
         _money -= itemValue;
         OnMoneyChanged?.Invoke(this, _money);
+        return true;
     }
 
     private void Start(){

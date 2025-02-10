@@ -69,7 +69,10 @@ public class CropInfoUI : MonoBehaviour
         if (_gameManager.State == GameState.Inspecting)
             _cropInfoUI.SetActive(true);
 
+        if (_selectedCrop)
+            _selectedCrop.ToggleOutline(false);
         _selectedCrop = e.ClickedObject.GetComponentInParent<Crop>();
+        _selectedCrop.ToggleOutline(true);
     }
 
     private void UpdateUI() {

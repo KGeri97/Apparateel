@@ -183,7 +183,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4098517116326183154}
@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38b24f6701e36a843a37e13872463520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalCropObject: {fileID: 1868522493744018369}
+  _originalObject: {fileID: 1868522493744018369}
   _scalerObject: {fileID: 3600507326403363568}
 --- !u!33 &5151346866715299363
 MeshFilter:

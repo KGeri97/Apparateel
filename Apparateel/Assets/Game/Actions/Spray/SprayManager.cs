@@ -2,12 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Apparateel.Crop;
+using Apparateel.Equipment;
 
 public class SprayManager : MonoBehaviour {
 
     public static SprayManager Instance;
     private InputManager _inputManager;
     private GameManager _gameManager;
+
+    [SerializeField]
+    private SOSprayEquipment _activeSprayEquipment;
+    public SOSprayEquipment ActiveSprayEquipment => _activeSprayEquipment;
 
     [SerializeField]
     private SOSpray _sprayData;
@@ -32,11 +37,19 @@ public class SprayManager : MonoBehaviour {
     }
 
     private void OnClick(object sender, InputManager.OnClickEventArgs e) {
-        if (_gameManager.State != GameState.Spraying || e.ClickedType != ClickableType.Crop)
+        //Incorrect state
+        if (_gameManager.State != GameState.Spraying)
             return;
 
-        CropInfection cropInfection = e.ClickedObject.GetComponentInParent<Crop>().CropInfection;
+        SprayHandler.Spray(_activeSprayEquipment, _sprayData, e);
 
+
+        CropInfection cropInfection = e.ClickedObject.GetComponentInParent<Crop>().CropInfection;
         cropInfection.Spray(_sprayData);
     }
+}
+
+public enum SprayEquipment {
+    None,
+    Default,
 }

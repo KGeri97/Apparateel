@@ -7,7 +7,7 @@ namespace Apparateel.Crop {
     [RequireComponent(typeof(CropGrowth))]
     [RequireComponent(typeof(CropInfection))]
     [RequireComponent(typeof(CropColor))]
-    public class Crop : MonoBehaviour, ICrop {
+    public class Crop : MonoBehaviour, ICrop, IHasOutline {
 
         private GameManager _gameManager;
 
@@ -75,6 +75,10 @@ namespace Apparateel.Crop {
 
         public void SetDirtMound(DirtMound dirtMound) {
             Mound = dirtMound;
+        }
+
+        public void ToggleOutline(bool active) {
+            _outline.SetActive(active);
         }
     }
 
