@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using Apparateel.Crop;
 
 public class DirtMound : MonoBehaviour, IHasOutline
@@ -17,11 +18,25 @@ public class DirtMound : MonoBehaviour, IHasOutline
     public Crop OccupyingCrop => _occupyingCrop;
     private bool _isOccupied = false;
 
+    private int _rowPosition;
+    public int RowPosition => _rowPosition;
+    private int _position;
+    public int Position => _position;
+
+    public static event EventHandler<OnCropPlantedEventArgs> OnCropPlanted;
+    public class OnCropPlantedEventArgs : EventArgs {
+        public Crop Crop;
+        public int RowPosition;
+        public int Position;
+    }
+
 
     private void Awake() {
         _clickable = GetComponentInChildren<Clickable>();
 
         _clickable.OnClick += OnClickEvent;
+
+        Crop.OnCropHarvested += OnCropHarvested;
     }
 
     private void Start() {
@@ -33,6 +48,7 @@ public class DirtMound : MonoBehaviour, IHasOutline
     private void OnDestroy() {
         _clickable.OnClick -= OnClickEvent;
         _inputManager.OnMouseHoverObjectChange -= OnMouseHoverObjectChange;
+        Crop.OnCropHarvested -= OnCropHarvested;
     }
 
     private void OnClickEvent(object sender, System.EventArgs e) {
@@ -56,6 +72,12 @@ public class DirtMound : MonoBehaviour, IHasOutline
         _occupyingCrop = Instantiate(_cropPrefab, transform.position, Quaternion.identity, transform);
         _occupyingCrop.SetDirtMound(this);
         _isOccupied = true;
+
+        OnCropPlanted?.Invoke(this, new OnCropPlantedEventArgs() {
+            Crop = _occupyingCrop,
+            RowPosition = _rowPosition,
+            Position = _position
+        });
     }
 
     private void FertilizeCrop() {
@@ -77,5 +99,14 @@ public class DirtMound : MonoBehaviour, IHasOutline
             ToggleOutline(true);
         else
             ToggleOutline(false);
+    }
+
+    public void SetPosition(int row, int position) {
+        _rowPosition = row;
+        _position = position;
+    }
+
+    private void OnCropHarvested(object sender, Crop.OnCropHarvestedEventArgs e) {
+        RemoveCrop();
     }
 }

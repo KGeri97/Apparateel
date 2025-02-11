@@ -29,6 +29,14 @@ namespace Apparateel.Crop {
 
         public DirtMound Mound { get; private set; }
 
+        public static event EventHandler<OnCropHarvestedEventArgs> OnCropHarvested;
+        public class OnCropHarvestedEventArgs : EventArgs {
+            public Crop Crop;
+            public int RowPosition;
+            public int Position;
+            public float Value;
+        }
+
         public bool IsGrowing => _cropGrowth.IsGrowing;
 
         private void OnEnable() {
@@ -53,8 +61,12 @@ namespace Apparateel.Crop {
         }
 
         private void HarvestCrop() {
-            MoneyManager.Instance.ItemSold(GetCropValue());
-            Mound.RemoveCrop();
+            OnCropHarvested?.Invoke(this, new OnCropHarvestedEventArgs() {
+                Crop = this,
+                RowPosition = Mound.RowPosition,
+                Position = Mound.Position,
+                Value = GetCropValue()
+            });
             Destroy(gameObject);
         }
 

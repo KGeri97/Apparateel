@@ -1,17 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Apparateel.Crop;
 
 public class Parcel : MonoBehaviour
 {
     public static Parcel Instance;
 
-    [SerializeField]
-    private List<List<DirtMound>> _dirtMounds;
+    //[SerializeField]
+    private DirtMound[,] _dirtMounds;
     /// <summary>
     /// First number is which row, second number is the DirtMound
     /// </summary>
-    public List<List<DirtMound>> DirtMounds { get { return _dirtMounds; } }
+    public DirtMound[,] DirtMounds { get { return _dirtMounds; } }
+
+    private Crop[,] _plantedCrops;
+    /// <summary>
+    /// First number is which row, second number is the DirtMound
+    /// </summary>
+    public Crop[,] PlantedCrops => _plantedCrops;
 
     private void Awake() {
         if (Instance != null) {
@@ -20,10 +27,14 @@ public class Parcel : MonoBehaviour
         }
 
         Instance = this;
+
+        DirtMound.OnCropPlanted += AddCropToParcel;
+        Crop.OnCropHarvested += OnCropHarvested;
     }
 
-    private void Start(){
-        _dirtMounds = new();
+    private void Start() {
+        //Getting the references for every DirtMound
+        List<List<DirtMound>> dirtMounds = new();
         foreach (Transform rowTransform in transform) {
             List<DirtMound> row = new();
 
@@ -33,8 +44,31 @@ public class Parcel : MonoBehaviour
                 if (dirtMound != null)
                     row.Add(dirtMound.gameObject.GetComponent<DirtMound>());
             }
-
-            _dirtMounds.Add(row);
+            dirtMounds.Add(row);
         }
+        //Debug.Log(dirtMounds.Count);
+
+        _dirtMounds = new DirtMound[dirtMounds.Count, dirtMounds[0].Count];
+        _plantedCrops = new Crop[dirtMounds.Count, dirtMounds[0].Count];
+
+        for (int i = 0; i < dirtMounds.Count; i++) {
+            for (int j = 0; j < dirtMounds[i].Count; j++) {
+                _dirtMounds[i, j] = dirtMounds[i][j];
+                _dirtMounds[i, j].SetPosition(i, j);
+            }
+        }
+    }
+
+    private void OnDestroy() {
+        DirtMound.OnCropPlanted -= AddCropToParcel;
+        Crop.OnCropHarvested -= OnCropHarvested;
+    }
+
+    private void AddCropToParcel(object sender, DirtMound.OnCropPlantedEventArgs e) {
+        _plantedCrops[e.RowPosition, e.Position] = e.Crop;
+    }
+
+    private void OnCropHarvested(object sender, Crop.OnCropHarvestedEventArgs e) {
+        _plantedCrops[e.RowPosition, e.Position] = null;
     }
 }

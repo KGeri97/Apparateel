@@ -92,7 +92,7 @@ public class CropInfoUI : MonoBehaviour
     }
 
     private void UpdateValue() {
-        _valueText.text = $"Value: {_selectedCrop.GetCropValue()}";
+        _valueText.text = $"Value: {_selectedCrop.GetCropValue().ToString("F2")}";
     }
 
     private void UpdateInfection() {
