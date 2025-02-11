@@ -9,7 +9,6 @@ public class CropInfoUI : MonoBehaviour
 {
     public static CropInfoUI Instance;
     private GameManager _gameManager;
-    private InputManager _inputManager;
 
     private Crop _selectedCrop;
     private GameObject _cropInfoUI;
@@ -45,8 +44,7 @@ public class CropInfoUI : MonoBehaviour
     private void Start() {
         _gameManager = GameManager.Instance;
 
-        _inputManager = InputManager.Instance;
-        _inputManager.OnClick += OnClick;
+        InputManager.Instance.OnClick += OnClick;
     }
 
     private void Update(){
@@ -58,7 +56,7 @@ public class CropInfoUI : MonoBehaviour
     }
 
     private void OnDestroy() {
-        _inputManager.OnClick -= OnClick;
+        InputManager.Instance.OnClick -= OnClick;
     }
 
     private void OnClick(object sender, InputManager.OnClickEventArgs e) {
@@ -67,13 +65,16 @@ public class CropInfoUI : MonoBehaviour
             return;
         }
 
-        if (_gameManager.State == GameState.Inspecting)
-            _cropInfoUI.SetActive(true);
+        if (_gameManager.State != GameState.Inspecting)
+            return;
+
+        _cropInfoUI.SetActive(true);
 
         if (_selectedCrop)
-            _selectedCrop.ToggleOutline(false);
+            _selectedCrop.Clickable.ToggleOutline(false);
+
         _selectedCrop = e.ClickedObject.GetComponentInParent<Crop>();
-        _selectedCrop.ToggleOutline(true);
+        e.ClickedObject.ToggleOutline(true);
     }
 
     private void UpdateUI() {
@@ -130,11 +131,12 @@ public class CropInfoUI : MonoBehaviour
     private void ForceHighlight() {
         if (!_selectedCrop)
             return;
-        _selectedCrop.ToggleOutline(true);
+        _selectedCrop.Clickable.ToggleOutline(true);
     }
 
     private void CloseUI() {
         _selectedCrop = null;
         _cropInfoUI.SetActive(false);
+        HighlightManager.ChangeHighlightedClickables(new List<Clickable>());
     }
 }

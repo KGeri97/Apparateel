@@ -2,14 +2,10 @@ using UnityEngine;
 using System;
 using Apparateel.Crop;
 
-public class DirtMound : MonoBehaviour, IHasOutline
+public class DirtMound : MonoBehaviour
 {
     private GameManager _gameManager;
-    private InputManager _inputManager;
     private Clickable _clickable;
-
-    [SerializeField]
-    private GameObject _outline;
 
     [SerializeField]
     private Crop _cropPrefab;
@@ -41,13 +37,10 @@ public class DirtMound : MonoBehaviour, IHasOutline
 
     private void Start() {
         _gameManager = GameManager.Instance;
-        _inputManager = InputManager.Instance;
-        _inputManager.OnMouseHoverObjectChange += OnMouseHoverObjectChange;
     }
 
     private void OnDestroy() {
         _clickable.OnClick -= OnClickEvent;
-        _inputManager.OnMouseHoverObjectChange -= OnMouseHoverObjectChange;
         Crop.OnCropHarvested -= OnCropHarvested;
     }
 
@@ -89,17 +82,13 @@ public class DirtMound : MonoBehaviour, IHasOutline
         _isOccupied = false;
     }
 
-    public void ToggleOutline(bool active) {
-        _outline.SetActive(active);
-    }
-
-    private void OnMouseHoverObjectChange(object sender, InputManager.OnMouseHoverObjectChangeEventArgs e) {
-        if ((_gameManager.State == GameState.Planting || _gameManager.State == GameState.Fertilizing)
-            && e.Clickable == _clickable)
-            ToggleOutline(true);
-        else
-            ToggleOutline(false);
-    }
+    //private void OnMouseHoverObjectChange(object sender, InputManager.OnMouseHoverObjectChangeEventArgs e) {
+    //    if ((_gameManager.State == GameState.Planting || _gameManager.State == GameState.Fertilizing)
+    //        && e.Clickable == _clickable)
+    //        _clickable.ToggleOutline(true);
+    //    else
+    //        _clickable.ToggleOutline(false);
+    //}
 
     public void SetPosition(int row, int position) {
         _rowPosition = row;

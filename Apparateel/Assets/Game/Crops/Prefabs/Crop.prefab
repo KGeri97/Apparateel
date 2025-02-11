@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _clickableType: 1
+  _outline: {fileID: 5760430852002681926}
 --- !u!33 &5425066795815852292
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -306,7 +307,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cropData: {fileID: 11400000, guid: 2526f9cd76b415d4e9e0aa6b5c24caad, type: 2}
   _clickable: {fileID: 8535271788513171344}
-  _outline: {fileID: 5760430852002681926}
 --- !u!114 &6494634464771929220
 MonoBehaviour:
   m_ObjectHideFlags: 0

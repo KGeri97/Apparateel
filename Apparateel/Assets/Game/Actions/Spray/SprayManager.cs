@@ -7,7 +7,6 @@ using Apparateel.Equipment;
 public class SprayManager : MonoBehaviour {
 
     public static SprayManager Instance;
-    private InputManager _inputManager;
     private GameManager _gameManager;
     private Parcel _parcel;
 
@@ -18,8 +17,8 @@ public class SprayManager : MonoBehaviour {
     [SerializeField]
     private SOSpray _sprayData;
 
-    private List<Crop> _highlightedCrops = new();
-    public List<Crop> HighlightedCrops => _highlightedCrops;
+    private List<Clickable> _highlightedClickables = new();
+    public List<Clickable> HighlightedClickables => _highlightedClickables;
 
     private void Awake() {
         if (Instance != null) {
@@ -33,14 +32,13 @@ public class SprayManager : MonoBehaviour {
     private void Start() {
         _parcel = Parcel.Instance;
         _gameManager = GameManager.Instance;
-        _inputManager = InputManager.Instance;
-        _inputManager.OnClick += OnClick;
-        _inputManager.OnMouseHoverObjectChange += OnMouseHoverObjectChange;
+        InputManager.Instance.OnClick += OnClick;
+        InputManager.Instance.OnMouseHoverObjectChange += OnMouseHoverObjectChange;
     }
 
     private void OnDestroy() {
-        _inputManager.OnClick -= OnClick;
-        _inputManager.OnMouseHoverObjectChange -= OnMouseHoverObjectChange;
+        InputManager.Instance.OnClick -= OnClick;
+        InputManager.Instance.OnMouseHoverObjectChange -= OnMouseHoverObjectChange;
     }
 
     private void OnClick(object sender, InputManager.OnClickEventArgs e) {
@@ -48,7 +46,7 @@ public class SprayManager : MonoBehaviour {
         if (_gameManager.State != GameState.Spraying)
             return;
 
-        SprayHandler.Spray(_sprayData);
+        Spray(_sprayData);
 
 
         //CropInfection cropInfection = e.ClickedObject.GetComponentInParent<Crop>().CropInfection;
@@ -56,11 +54,11 @@ public class SprayManager : MonoBehaviour {
     }
 
     private void OnMouseHoverObjectChange(object sender, InputManager.OnMouseHoverObjectChangeEventArgs e) {
-        if (_highlightedCrops.Count > 0) {
-            foreach (Crop crop in _highlightedCrops) {
-                crop.ToggleOutline(false);
+        if (_highlightedClickables.Count > 0) {
+            foreach (Clickable clickable in _highlightedClickables) {
+                clickable.ToggleOutline(false);
             }
-            _highlightedCrops = new();
+            _highlightedClickables = new();
         }
 
         if (_gameManager.State != GameState.Spraying || e.Clickable == null)
@@ -72,7 +70,7 @@ public class SprayManager : MonoBehaviour {
 
         switch (_activeSprayEquipment.SprayType) {
             case SprayType.Singular:
-                _highlightedCrops.Add(hoveredCrop);
+                _highlightedClickables.Add(e.Clickable);
                 break;
             case SprayType.Row:
                 MarkRowForHighlight(hoveredCrop);
@@ -86,12 +84,10 @@ public class SprayManager : MonoBehaviour {
                 throw new System.NotImplementedException();
         }
 
-        if (_highlightedCrops.Count == 0)
+        if (_highlightedClickables.Count == 0)
             return;
 
-        foreach (Crop crop in _highlightedCrops) {
-            crop.ToggleOutline(true);
-        }
+        HighlightManager.ChangeHighlightedClickables(_highlightedClickables);
     }
 
     private void MarkRowForHighlight(Crop crop) {
@@ -110,7 +106,16 @@ public class SprayManager : MonoBehaviour {
 
         for (int i = 0; i < _parcel.PlantedCrops.GetLength(1); i++) {
             if (_parcel.PlantedCrops[rowNumber, i])
-                _highlightedCrops.Add(_parcel.PlantedCrops[rowNumber, i]);
+                _highlightedClickables.Add(_parcel.PlantedCrops[rowNumber, i].Clickable);
+        }
+    }
+
+    public void Spray(SOSpray sprayData) {
+        foreach (Clickable clickable in _highlightedClickables) {
+            if (!MoneyManager.Instance.ItemPurchased(sprayData.CostPerPlant))
+                return;
+
+            clickable.GetComponentInParent<CropInfection>().Spray(sprayData);
         }
     }
 }
