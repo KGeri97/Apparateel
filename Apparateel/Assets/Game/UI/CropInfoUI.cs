@@ -54,6 +54,7 @@ public class CropInfoUI : MonoBehaviour
             return;
 
         UpdateUI();
+        ForceHighlight();
     }
 
     private void OnDestroy() {
@@ -124,6 +125,12 @@ public class CropInfoUI : MonoBehaviour
 
     private void UpdateName() {
         _cropName.text = _selectedCrop.CropData.Name;
+    }
+
+    private void ForceHighlight() {
+        if (!_selectedCrop)
+            return;
+        _selectedCrop.ToggleOutline(true);
     }
 
     private void CloseUI() {
