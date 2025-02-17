@@ -27,15 +27,22 @@ public class HighlightManager : MonoBehaviour
 
     private void OnMouseHoverObjectChange(object sender, InputManager.OnMouseHoverObjectChangeEventArgs e) {
         ToggleAllClickableOutlines(false);
+        _highlightedClickables = new();
 
         if (e.Clickable == null)
             return;
 
-        _highlightedClickables.Add(e.Clickable);
-        e.Clickable.ToggleOutline(true);
+        if (!_highlightedClickables.Contains(e.Clickable))
+            _highlightedClickables.Add(e.Clickable);
+
+
+        ToggleAllClickableOutlines(true);
+
+        //e.Clickable.ToggleOutline(true);
     }
 
     public static void ChangeHighlightedClickables(List<Clickable> clickables) {
+        Debug.Log(clickables.Count);
         ToggleAllClickableOutlines(false);
 
         _highlightedClickables = clickables;

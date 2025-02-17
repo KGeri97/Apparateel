@@ -4,7 +4,7 @@ using UnityEngine;
 using Apparateel.Crop;
 using Apparateel.Equipment;
 
-public class SprayManager : MonoBehaviour {
+public class SprayManager : MonoBehaviour, ICanAskYesNoQuestion {
 
     public static SprayManager Instance;
     private GameManager _gameManager;
@@ -20,6 +20,9 @@ public class SprayManager : MonoBehaviour {
     private List<Clickable> _highlightedClickables = new();
     public List<Clickable> HighlightedClickables => _highlightedClickables;
 
+    [SerializeField]
+    private AreYouSure _areYouSurePopUpWindow;
+
     private void Awake() {
         if (Instance != null) {
             Debug.LogError("There is already an EquipmentManager Instance.");
@@ -34,11 +37,13 @@ public class SprayManager : MonoBehaviour {
         _gameManager = GameManager.Instance;
         InputManager.Instance.OnClick += OnClick;
         InputManager.Instance.OnMouseHoverObjectChange += OnMouseHoverObjectChange;
+        _gameManager.OnStateChanged += OnStateChanged;
     }
 
     private void OnDestroy() {
         InputManager.Instance.OnClick -= OnClick;
         InputManager.Instance.OnMouseHoverObjectChange -= OnMouseHoverObjectChange;
+        _gameManager.OnStateChanged += OnStateChanged;
     }
 
     private void OnClick(object sender, InputManager.OnClickEventArgs e) {
@@ -47,10 +52,6 @@ public class SprayManager : MonoBehaviour {
             return;
 
         Spray(_sprayData);
-
-
-        //CropInfection cropInfection = e.ClickedObject.GetComponentInParent<Crop>().CropInfection;
-        //cropInfection.Spray(_sprayData);
     }
 
     private void OnMouseHoverObjectChange(object sender, InputManager.OnMouseHoverObjectChangeEventArgs e) {
@@ -116,6 +117,26 @@ public class SprayManager : MonoBehaviour {
                 return;
 
             clickable.GetComponentInParent<CropInfection>().Spray(sprayData);
+        }
+    }
+
+    private void OnStateChanged(object sender, GameManager.OnStateChangedEventArgs e) {
+        if (e.NewState != GameState.Spraying || _activeSprayEquipment.SprayType != SprayType.Field)
+            return;
+
+        _areYouSurePopUpWindow.gameObject.SetActive(true);
+        _areYouSurePopUpWindow.SetAskingObject(this);
+    }
+
+    public void ResponseReceived(bool response) {
+        if (!response)
+            return;
+
+        foreach (Crop crop in _parcel.PlantedCrops) {
+            if (!MoneyManager.Instance.ItemPurchased(_sprayData.CostPerPlant))
+                return;
+
+            crop.CropInfection.Spray(_sprayData);
         }
     }
 }
