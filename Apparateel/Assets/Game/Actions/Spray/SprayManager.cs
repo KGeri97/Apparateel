@@ -77,9 +77,11 @@ public class SprayManager : MonoBehaviour, ICanAskYesNoQuestion {
                 MarkRowForHighlight(hoveredCrop);
                 break;
             case SprayType.Area:
-                break;
+                throw new System.NotImplementedException();
             case SprayType.None:
                 Debug.LogError($"SprayType of {_activeSprayEquipment.name} is not set", this);
+                break;
+            case SprayType.Field:
                 break;
             default:
                 throw new System.NotImplementedException();
@@ -129,12 +131,18 @@ public class SprayManager : MonoBehaviour, ICanAskYesNoQuestion {
     }
 
     public void ResponseReceived(bool response) {
+        _gameManager.ChangeGameState(GameState.Running);
         if (!response)
             return;
+
+        //_parcel.PlantedCrops[0, 0].CropInfection.Spray(_sprayData);
 
         foreach (Crop crop in _parcel.PlantedCrops) {
             if (!MoneyManager.Instance.ItemPurchased(_sprayData.CostPerPlant))
                 return;
+
+            if (crop == null)
+                continue;
 
             crop.CropInfection.Spray(_sprayData);
         }

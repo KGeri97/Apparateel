@@ -42,7 +42,6 @@ public class HighlightManager : MonoBehaviour
     }
 
     public static void ChangeHighlightedClickables(List<Clickable> clickables) {
-        Debug.Log(clickables.Count);
         ToggleAllClickableOutlines(false);
 
         _highlightedClickables = clickables;

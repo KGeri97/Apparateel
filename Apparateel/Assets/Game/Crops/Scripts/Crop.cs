@@ -64,7 +64,8 @@ namespace Apparateel.Crop {
                 Position = Mound.Position,
                 Value = GetCropValue()
             });
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            //Destroy(gameObject);
         }
 
         public float GetCropValue() {

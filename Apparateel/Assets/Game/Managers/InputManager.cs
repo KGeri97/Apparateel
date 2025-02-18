@@ -53,14 +53,15 @@ public class InputManager : MonoBehaviour
         Clickable clickable = null;
 
         if (didHit)
-            clickable = gameObjectHit.GetComponent<Clickable>();
+            gameObjectHit.TryGetComponent(out clickable);
 
-        #region MouseClick
-        MouseClick(clickable, hit);
-        #endregion
 
         #region MouseHover
         MouseHover(gameObjectHit, clickable);
+        #endregion
+
+        #region MouseClick
+        MouseClick(clickable, hit);
         #endregion
     }
 

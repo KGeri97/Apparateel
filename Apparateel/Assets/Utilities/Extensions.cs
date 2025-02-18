@@ -4,11 +4,12 @@ using UnityEngine;
 
 public static class Extensions
 {
-    public static Vector2 FindIndex2D<T>(this T[,] array, T item) {
+    public static Vector2 FindIndex2D<T>(this T[,] array, T item) where T : class {
         for (int row = 0; row < array.GetLength(0); row++) {
             for (int column = 0; column < array.GetLength(1); column++) {
-                if (!EqualityComparer<T>.Default.Equals(array[row, column], item))
-                    return new Vector2(row, column);
+                //if (!EqualityComparer<T>.Default.Equals(array[row, column], item))
+                if (array[row, column] == item)
+                        return new Vector2(row, column);
             }
         }
         throw new System.Exception("Item could not be found in array");
