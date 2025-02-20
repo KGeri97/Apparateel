@@ -9,6 +9,7 @@ namespace Apparateel.Equipment {
         public string EquipmentName;
         public int Cost;
         public List<EquipmentStatModifier> StatModifiers;
-        public List<EquipmentApplianceModifier> ApplianceModifier;
+        public List<EquipmentApplianceModifier> ApplianceModifiers;
+        public List<ApplianceAction> ActionType;
     }
 }

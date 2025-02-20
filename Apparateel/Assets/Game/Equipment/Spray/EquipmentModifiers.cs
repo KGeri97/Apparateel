@@ -38,5 +38,4 @@ namespace Apparateel.Equipment {
         Row,
         Field
     }
-
 }

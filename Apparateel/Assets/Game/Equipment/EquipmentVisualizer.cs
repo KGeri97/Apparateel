@@ -47,7 +47,7 @@ public class EquipmentVisualizer : MonoBehaviour
             gameObject.transform.SetSiblingIndex(_modifiersField.transform.GetSiblingIndex() + 1);
         }
 
-        foreach (EquipmentApplianceModifier applianceModifier in _equipment.Data.ApplianceModifier) {
+        foreach (EquipmentApplianceModifier applianceModifier in _equipment.Data.ApplianceModifiers) {
             GameObject gameObject = new GameObject();
             gameObject.AddComponent<RectTransform>();
             TextMeshProUGUI textComponent = gameObject.AddComponent<TextMeshProUGUI>();

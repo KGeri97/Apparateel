@@ -1169,7 +1169,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9215071f57f5b2e4db767695f2d5af7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _activeSprayEquipment: {fileID: 11400000, guid: 50d92336318dc6e4690b55e1466afb4c, type: 2}
   _sprayData: {fileID: 11400000, guid: c0b1434d5840010458c8c65c417ad3b8, type: 2}
   _areYouSurePopUpWindow: {fileID: 925313777}
 --- !u!1 &127567608

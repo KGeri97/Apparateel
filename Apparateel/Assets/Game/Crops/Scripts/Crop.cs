@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Apparateel.Equipment;
 
 namespace Apparateel.Crop {
     [RequireComponent(typeof(CropGrowth))]
@@ -77,10 +78,12 @@ namespace Apparateel.Crop {
                 finalSellPrice -= baseSellPrice * _cropInfection.CurrentInfectionPriceModifier;
 
             //Spray modifier
+            float cropSellPriceModifier = EquipmentManager.Instance.GetActiveModifier(ModifiableStats.SprayCropSellReduction);
+            cropSellPriceModifier = cropSellPriceModifier == -1 ? 1 : cropSellPriceModifier;
             if (_cropInfection.IsSprayed)
-                finalSellPrice -= _cropInfection.SprayedWith.CropSellPriceReduction * _cropInfection.TimesSprayed;
+                finalSellPrice -= _cropInfection.SprayedWith.CropSellPriceReduction * cropSellPriceModifier * _cropInfection.TimesSprayed;
 
-            return finalSellPrice ;
+            return Mathf.Max(0, finalSellPrice);
         }
 
         public void SetDirtMound(DirtMound dirtMound) {

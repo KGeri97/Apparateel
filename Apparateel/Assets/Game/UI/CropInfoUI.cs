@@ -135,8 +135,10 @@ public class CropInfoUI : MonoBehaviour
     }
 
     private void CloseUI() {
+        if (_selectedCrop)
+            _selectedCrop.Clickable.ToggleOutline(false);
         _selectedCrop = null;
         _cropInfoUI.SetActive(false);
-        HighlightManager.ChangeHighlightedClickables(new List<Clickable>());
+        HighlightManager.ChangeHighlightedClickables(new List<Clickable>()); //Doesnt remove highlights on close
     }
 }

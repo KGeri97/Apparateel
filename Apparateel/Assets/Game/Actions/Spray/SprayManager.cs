@@ -10,9 +10,9 @@ public class SprayManager : MonoBehaviour, ICanAskYesNoQuestion {
     private GameManager _gameManager;
     private Parcel _parcel;
 
-    [SerializeField]
-    private SOSprayEquipment _activeSprayEquipment;
-    public SOSprayEquipment ActiveSprayEquipment => _activeSprayEquipment;
+    //[SerializeField]
+    //private SOSprayEquipment _activeSprayEquipment;
+    //public SOSprayEquipment ActiveSprayEquipment => _activeSprayEquipment;
 
     [SerializeField]
     private SOSpray _sprayData;
@@ -22,6 +22,8 @@ public class SprayManager : MonoBehaviour, ICanAskYesNoQuestion {
 
     [SerializeField]
     private AreYouSure _areYouSurePopUpWindow;
+
+    //private SprayType
 
     private void Awake() {
         if (Instance != null) {
@@ -69,19 +71,29 @@ public class SprayManager : MonoBehaviour, ICanAskYesNoQuestion {
         if (!hoveredCrop)
             return;
 
-        switch (_activeSprayEquipment.SprayType) {
-            case SprayType.Singular:
+        ApplianceMethod sprayMethod = ApplianceMethod.Singular;
+        EquipmentData equipmentData = EquipmentManager.Instance.GetActiveEquipment(ApplianceAction.Spraying);
+        if (equipmentData == null)
+            sprayMethod = ApplianceMethod.Singular;
+        else {
+            ApplianceMethod sprayMethodModifier = equipmentData.GetApplianceMethod(ApplianceAction.Spraying);
+            if (sprayMethodModifier != ApplianceMethod.None)
+                sprayMethod = sprayMethodModifier;
+        }
+
+        switch (sprayMethod) {
+            case ApplianceMethod.Singular:
                 _highlightedClickables.Add(e.Clickable);
                 break;
-            case SprayType.Row:
+            case ApplianceMethod.Row:
                 MarkRowForHighlight(hoveredCrop);
                 break;
-            case SprayType.Area:
+            case ApplianceMethod.Area:
                 throw new System.NotImplementedException();
-            case SprayType.None:
-                Debug.LogError($"SprayType of {_activeSprayEquipment.name} is not set", this);
+            case ApplianceMethod.None:
+                Debug.LogError($"SprayType of the current spray equipment is not set");
                 break;
-            case SprayType.Field:
+            case ApplianceMethod.Field:
                 break;
             default:
                 throw new System.NotImplementedException();
@@ -115,7 +127,7 @@ public class SprayManager : MonoBehaviour, ICanAskYesNoQuestion {
 
     public void Spray(SOSpray sprayData) {
         foreach (Clickable clickable in _highlightedClickables) {
-            if (!MoneyManager.Instance.ItemPurchased(sprayData.CostPerPlant))
+            if (!MoneyManager.Instance.ItemPurchased(GetModifiedSprayCost(_sprayData)))
                 return;
 
             clickable.GetComponentInParent<CropInfection>().Spray(sprayData);
@@ -123,7 +135,8 @@ public class SprayManager : MonoBehaviour, ICanAskYesNoQuestion {
     }
 
     private void OnStateChanged(object sender, GameManager.OnStateChangedEventArgs e) {
-        if (e.NewState != GameState.Spraying || _activeSprayEquipment.SprayType != SprayType.Field)
+        EquipmentData activeEquipment = EquipmentManager.Instance.GetActiveEquipment(ApplianceAction.Spraying);
+        if (e.NewState != GameState.Spraying || activeEquipment == null || activeEquipment.GetApplianceMethod(ApplianceAction.Spraying) != ApplianceMethod.Field)
             return;
 
         _areYouSurePopUpWindow.gameObject.SetActive(true);
@@ -138,7 +151,7 @@ public class SprayManager : MonoBehaviour, ICanAskYesNoQuestion {
         //_parcel.PlantedCrops[0, 0].CropInfection.Spray(_sprayData);
 
         foreach (Crop crop in _parcel.PlantedCrops) {
-            if (!MoneyManager.Instance.ItemPurchased(_sprayData.CostPerPlant))
+            if (!MoneyManager.Instance.ItemPurchased(GetModifiedSprayCost(_sprayData)))
                 return;
 
             if (crop == null)
@@ -147,9 +160,13 @@ public class SprayManager : MonoBehaviour, ICanAskYesNoQuestion {
             crop.CropInfection.Spray(_sprayData);
         }
     }
-}
 
-public enum SprayEquipment {
-    None,
-    Default,
+    private float GetModifiedSprayCost(SOSpray sprayData) {
+        float modifier = EquipmentManager.Instance.GetActiveModifier(ModifiableStats.SprayCostPerPlant);
+
+        if (modifier == -1)
+            return sprayData.CostPerPlant;
+        else
+            return sprayData.CostPerPlant * modifier;
+    }
 }

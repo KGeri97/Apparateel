@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using Apparateel.Equipment;
 using UnityEngine.UI;
+using System.Linq;
 
 namespace Apparateel.Equipment {
     public class EquipmentManager : MonoBehaviour {
@@ -91,6 +92,31 @@ namespace Apparateel.Equipment {
 
         private void CloseUI() {
             _barnUI.SetActive(false);
+        }
+
+        public float GetActiveModifier(ModifiableStats modifiableStat) {
+            float modifier;
+            foreach (EquipmentData ed in _activeEquipments) {
+                modifier = ed.GetStatModifier(modifiableStat);
+                if (modifier != -1f)
+                    return modifier;
+            }
+
+            return -1f;
+        }
+
+        /// <summary>
+        /// Returns the active equipment based on the action it modifies
+        /// </summary>
+        /// <param name="applianceAction"></param>
+        /// <returns></returns>
+        public EquipmentData GetActiveEquipment(ApplianceAction applianceAction) {
+            if (_activeEquipments.Count == 0) {
+                return null;
+            }
+
+            EquipmentData equipment = _activeEquipments.FirstOrDefault(x => x.Data.ActionType.Contains(applianceAction));
+            return equipment;
         }
     }
 }

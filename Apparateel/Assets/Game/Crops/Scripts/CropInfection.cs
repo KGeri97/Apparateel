@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Apparateel.Crop;
 using Apparateel.Utilities.Timer;
+using Apparateel.Equipment;
 
 public class CropInfection : MonoBehaviour
 {
@@ -61,7 +62,7 @@ public class CropInfection : MonoBehaviour
     }
 
     private void OnCropGrowth(object sender, CropGrowth.OnCropGrowthEventArgs e) {
-        ReduceChemicalProtection();
+        ReduceChemicalProtection(_sprayedWith);
         Infection();
     }
 
@@ -94,14 +95,22 @@ public class CropInfection : MonoBehaviour
         _isSprayed = true;
         _timesSprayed++;
         _sprayedWith = sprayedWithData;
-        _chemicalProtection = sprayedWithData.MaxProtection;
+
+        //Applying MaxProtection modifier
+        float maxProtectionModifier = EquipmentManager.Instance.GetActiveModifier(ModifiableStats.SprayMaxProtection);
+        _chemicalProtection = maxProtectionModifier == -1 ? sprayedWithData.MaxProtection : sprayedWithData.MaxProtection * maxProtectionModifier;
     }
 
-    private void ReduceChemicalProtection() {
+    private void ReduceChemicalProtection(SOSpray sprayedWithData) {
         if (!_isSprayed)
             return;
 
-        _chemicalProtection -= _sprayedWith.ProtectionDecline;
+
+        //Applying ProtectionDecline modifier
+        float protectionDeclineModifier = EquipmentManager.Instance.GetActiveModifier(ModifiableStats.SprayProtectionDecline);
+        float actualProtectionDecline = protectionDeclineModifier == -1 ? sprayedWithData.ProtectionDecline : sprayedWithData.ProtectionDecline * protectionDeclineModifier;
+
+        _chemicalProtection -= actualProtectionDecline;
         if (_chemicalProtection < 0)
             _chemicalProtection = 0;
     }
