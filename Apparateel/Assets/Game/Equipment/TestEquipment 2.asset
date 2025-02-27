@@ -10,14 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f3de84a94f66a8d409646a07be2bfa31, type: 3}
-  m_Name: TestEquipment
+  m_Name: TestEquipment 2
   m_EditorClassIdentifier: 
-  EquipmentName: Test equipment
-  Cost: 10
+  EquipmentName: Test 2
+  ActionType: 03000000
   StatModifiers:
   - StatModifier: 1
-    Value: 0.8
-  - StatModifier: 2
     Value: 1.1
-  ApplianceModifiers: []
-  ActionType: 03000000
+  - StatModifier: 3
+    Value: 0.85
+  - StatModifier: 2
+    Value: 0.8
+  ApplianceModifiers:
+  - Action: 3
+    Method: 4
+  Cost: 15

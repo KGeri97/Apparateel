@@ -7,9 +7,9 @@ namespace Apparateel.Equipment {
     [CreateAssetMenu(fileName = "SOEquipment", menuName = "Scriptable Objects/EquipmentData")]
     public class SOEquipment : ScriptableObject {
         public string EquipmentName;
-        public int Cost;
+        public List<ApplianceAction> ActionType;
         public List<EquipmentStatModifier> StatModifiers;
         public List<EquipmentApplianceModifier> ApplianceModifiers;
-        public List<ApplianceAction> ActionType;
+        public int Cost;
     }
 }

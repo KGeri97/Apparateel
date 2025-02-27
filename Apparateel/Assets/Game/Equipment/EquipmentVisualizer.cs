@@ -60,7 +60,7 @@ public class EquipmentVisualizer : MonoBehaviour
             gameObject.transform.SetSiblingIndex(_modifiersField.transform.GetSiblingIndex() + 1);
         }
 
-        _costField.text = _equipment.Data.Cost.ToString();
+        _costField.text = $"Cost: {_equipment.Data.Cost.ToString()}";
 
         if (!_equipment.IsPurchased) {
             _purchaseButton.gameObject.SetActive(true);

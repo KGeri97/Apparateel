@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Test Spray
   CostPerPlant: 1
-  MaxProtection: 50
+  MaxProtection: 60
   ProtectionDecline: 20
   CropSellPriceReduction: 0.3

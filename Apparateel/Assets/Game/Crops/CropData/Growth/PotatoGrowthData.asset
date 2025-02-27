@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PotatoGrowthData
   m_EditorClassIdentifier: 
   GrowthStages: 5
-  FullGrowthTime: 10
+  FullGrowthTime: 180
   BeginScale: {x: 0.1, y: 0.4, z: 0.1}
   EndScale: {x: 0.5, y: 2, z: 0.5}
   GrowthCurve:
