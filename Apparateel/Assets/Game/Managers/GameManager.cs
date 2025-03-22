@@ -48,5 +48,6 @@ public enum GameState {
     Planting,
     Fertilizing,
     Spraying,
-    Inspecting
+    Inspecting,
+    Harvesting
 }

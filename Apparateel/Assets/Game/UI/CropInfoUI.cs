@@ -16,17 +16,35 @@ public class CropInfoUI : MonoBehaviour
     [SerializeField]
     private RectTransform _progressBar;
     [SerializeField]
+    private UITextSO _progressText;
+    [SerializeField]
     private TMP_Text _cropName;
     [SerializeField]
+    private UITextSO _cropText;
+    [SerializeField]
     private TMP_Text _infectedText;
+    [SerializeField]
+    private UITextSO _infectedTranslatedText;
+    [SerializeField]
+    private UITextSO _notInfectedTranslatedText;
     [SerializeField]
     private Button _closeButton;
     [SerializeField]
     private TMP_Text _sprayedText;
     [SerializeField]
+    private UITextSO _sprayedTranslatedText;
+    [SerializeField]
+    private UITextSO _notSprayedTranslatedText;
+    [SerializeField]
     private TMP_Text _chemicalProtectionText;
     [SerializeField]
+    private UITextSO _chemicalProtectionTranslatedText;
+    [SerializeField]
     private TMP_Text _valueText;
+    [SerializeField]
+    private UITextSO _valueTranslatedText;
+
+    private int _langIndex = 0;
 
     private void Awake(){
         if (Instance != null) {
@@ -50,6 +68,11 @@ public class CropInfoUI : MonoBehaviour
     private void Update(){
         if (!_cropInfoUI.activeSelf)
             return;
+
+        if (LanguageSelector.Instance.Language == Language.English)
+            _langIndex = 0;
+        else
+            _langIndex = 1;
 
         UpdateUI();
         ForceHighlight();
@@ -94,7 +117,7 @@ public class CropInfoUI : MonoBehaviour
     }
 
     private void UpdateValue() {
-        _valueText.text = $"Value: {_selectedCrop.GetCropValue().ToString("F2")}";
+        _valueText.text = $"{_valueTranslatedText.Translations[_langIndex].Text}: {_selectedCrop.GetCropValue().ToString("F2")}";
     }
 
     private void UpdateInfection() {
@@ -102,9 +125,9 @@ public class CropInfoUI : MonoBehaviour
         CropInfection cropInfection = _selectedCrop.CropInfection;
 
         if (cropInfection.IsInfected)
-            text = "Infected";
+            text = $"{_infectedTranslatedText.Translations[_langIndex].Text}";
         else
-            text = "Not infected";
+            text = $"{_notInfectedTranslatedText.Translations[_langIndex].Text }";
 
         _infectedText.text = text;
 
@@ -113,15 +136,15 @@ public class CropInfoUI : MonoBehaviour
         text = "";
 
         if (cropInfection.IsSprayed)
-            text = "Sprayed";
+            text = $"{_sprayedTranslatedText.Translations[_langIndex].Text}";
         else
-            text = "Not sprayed";
+            text = $"{_notSprayedTranslatedText.Translations[_langIndex].Text}";
 
         _sprayedText.text = text;
 
 
 
-        _chemicalProtectionText.text = $"Chemical Protection: {cropInfection.ChemicalProtection}%";
+        _chemicalProtectionText.text = $"{_chemicalProtectionTranslatedText.Translations[_langIndex].Text}: {cropInfection.ChemicalProtection}%";
     }
 
     private void UpdateName() {
