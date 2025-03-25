@@ -92,6 +92,7 @@ public class CropInfoUI : MonoBehaviour
             return;
 
         _cropInfoUI.SetActive(true);
+        //Music Manager here
 
         if (_selectedCrop)
             _selectedCrop.Clickable.ToggleOutline(false);

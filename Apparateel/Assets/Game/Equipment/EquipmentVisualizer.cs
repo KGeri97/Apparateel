@@ -38,6 +38,7 @@ public class EquipmentVisualizer : MonoBehaviour
             GameObject gameObject = new GameObject();
             gameObject.AddComponent<RectTransform>();
             TextMeshProUGUI textComponent = gameObject.AddComponent<TextMeshProUGUI>();
+            textComponent.color = Color.black;
             string str = $"{statModifier.StatModifier.ToString()}: x{statModifier.Value.ToString()}";
 
             textComponent.text = str;
@@ -51,6 +52,7 @@ public class EquipmentVisualizer : MonoBehaviour
             GameObject gameObject = new GameObject();
             gameObject.AddComponent<RectTransform>();
             TextMeshProUGUI textComponent = gameObject.AddComponent<TextMeshProUGUI>();
+            textComponent.color = Color.black;
             string str = $"{applianceModifier.Action.ToString()}: {applianceModifier.Method.ToString()}";
 
             textComponent.text = str;

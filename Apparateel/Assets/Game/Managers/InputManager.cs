@@ -9,6 +9,9 @@ public class InputManager : MonoBehaviour
 
     private GameObject _lastSelectedObject;
 
+    public Vector3 _pointingAtLocation;
+    public GameObject _pointingAtObject;
+
     public event EventHandler<OnClickEventArgs> OnClick;
     public class OnClickEventArgs {
         /// <summary>
@@ -52,8 +55,11 @@ public class InputManager : MonoBehaviour
         GameObject gameObjectHit = didHit ? hit.transform.gameObject : null;
         Clickable clickable = null;
 
-        if (didHit)
+        if (didHit) {
             gameObjectHit.TryGetComponent(out clickable);
+            _pointingAtLocation = hit.point;
+            _pointingAtObject = gameObjectHit;
+        }
 
 
         #region MouseHover

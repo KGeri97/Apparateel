@@ -52,7 +52,7 @@ namespace Apparateel.Crop {
         }
 
         private void OnClickEvent(object sender, EventArgs e) {
-            if (!IsGrowing && _gameManager.State == GameState.Running) {
+            if (!IsGrowing && _gameManager.State == GameState.Harvesting) {
                 HarvestCrop();
                 return;
             }
@@ -65,6 +65,8 @@ namespace Apparateel.Crop {
                 Position = Mound.Position,
                 Value = GetCropValue()
             });
+            MoneyPopUpManager.Instance.CreatePopUp(GetCropValue());
+            //Music manager call here
             gameObject.SetActive(false);
             //Destroy(gameObject);
         }

@@ -74,8 +74,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278584838
+  m_fontColor: {r: 0.025157154, g: 0.025157154, b: 0.025157154, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -396,8 +396,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278584838
+  m_fontColor: {r: 0.025157154, g: 0.025157154, b: 0.025157154, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -653,8 +653,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278584838
+  m_fontColor: {r: 0.025157154, g: 0.025157154, b: 0.025157154, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -789,8 +789,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4278584838
+  m_fontColor: {r: 0.025157154, g: 0.025157154, b: 0.025157154, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -905,7 +905,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34fa650c9e8b7f149bc48001d18ce17a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _equipment: {fileID: 11400000, guid: 8dcb8c22389c28149975326c800a3c39, type: 2}
+  _equipment:
+    Data: {fileID: 0}
+    IsActive: 0
+    IsPurchased: 0
   _nameField: {fileID: 1261367016663543995}
   _modifiersField: {fileID: 1927167696492953999}
   _costField: {fileID: 1769199864099998404}
@@ -1050,7 +1053,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_fontColor: {r: 0.025157154, g: 0.025157154, b: 0.025157154, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

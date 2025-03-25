@@ -66,6 +66,9 @@ public class DirtMound : MonoBehaviour
         _occupyingCrop.SetDirtMound(this);
         _isOccupied = true;
 
+        MoneyPopUpManager.Instance.CreatePopUp(-_cropPrefab.CropData.MoneyData.BuyPrice);
+        //Music manager here
+
         OnCropPlanted?.Invoke(this, new OnCropPlantedEventArgs() {
             Crop = _occupyingCrop,
             RowPosition = _rowPosition,
