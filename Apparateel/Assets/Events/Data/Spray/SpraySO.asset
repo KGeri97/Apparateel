@@ -9,17 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abb157f8010d4db42bf6536e535c89a9, type: 3}
-  m_Name: PotatoMoneyData
+  m_Script: {fileID: 11500000, guid: eaff6feb880f7ea428ec39d8785ced73, type: 3}
+  m_Name: SpraySO
   m_EditorClassIdentifier: 
-  BuyPrice: 1.2
-  SellPrices:
-  - Quality: 0
-    SellPrice: 2.5
-  - Quality: 1
-    SellPrice: 1.5
-  - Quality: 2
-    SellPrice: 1
-  - Quality: 3
-    SellPrice: 0.5
-  CropQuality: 0
+  Name: Test Spray
+  CostPerPlant: 0.5
+  MaxProtection: 60
+  ProtectionDecline: 20
+  CropSellPriceReduction: 0.3

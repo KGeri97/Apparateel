@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class MoneyDashboardUpdater : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class MoneyDashboardUpdater : MonoBehaviour
 
     private void UpdateDashboard(object sender, float value) {
         string str = LanguageSelector.Instance.Language == Language.English ? _translatedText.Translations[0].Text : _translatedText.Translations[1].Text;
-        _textComponent.text = $"{str}: {value}";
+        _textComponent.text = $"{str}: {decimal.Round((decimal)value, 2, MidpointRounding.AwayFromZero)}";
     }
 
 }

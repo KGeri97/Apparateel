@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Apparateel.Utilities.Timer;
 using TMPro;
+using System;
 
 public class MoneyPopUpAnimation : MonoBehaviour {
     [SerializeField]
@@ -46,7 +47,7 @@ public class MoneyPopUpAnimation : MonoBehaviour {
     }
 
     public void SetText(float value) {
-        _textComponent.text = $"{value}€";
+        _textComponent.text = $"{decimal.Round((decimal)value, 2, MidpointRounding.AwayFromZero)}€";
         _textComponent.color = value > 0 ? Color.green : Color.red;
     }
 }

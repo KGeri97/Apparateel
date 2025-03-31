@@ -2868,7 +2868,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -34.20459, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -3171,8 +3171,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 511919285}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 16.453495, y: 8.2149515, z: 1.8989253}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3359,7 +3359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreLayout: 0
-  m_MinWidth: 450
+  m_MinWidth: 480
   m_MinHeight: 50
   m_PreferredWidth: -1
   m_PreferredHeight: -1
@@ -5054,8 +5054,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1032859810}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.0914683, y: 7.2262406, z: 2.0726252}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8183,18 +8183,6 @@ MonoBehaviour:
     IsActive: 0
     IsPurchased: 0
   - Data: {fileID: 11400000, guid: fd859764383ac1b4e8459b59b6607024, type: 2}
-    IsActive: 0
-    IsPurchased: 0
-  - Data: {fileID: 11400000, guid: 8dcb8c22389c28149975326c800a3c39, type: 2}
-    IsActive: 0
-    IsPurchased: 0
-  - Data: {fileID: 11400000, guid: 8dcb8c22389c28149975326c800a3c39, type: 2}
-    IsActive: 0
-    IsPurchased: 0
-  - Data: {fileID: 11400000, guid: 8dcb8c22389c28149975326c800a3c39, type: 2}
-    IsActive: 0
-    IsPurchased: 0
-  - Data: {fileID: 11400000, guid: 8dcb8c22389c28149975326c800a3c39, type: 2}
     IsActive: 0
     IsPurchased: 0
   - Data: {fileID: 11400000, guid: 8dcb8c22389c28149975326c800a3c39, type: 2}

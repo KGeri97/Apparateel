@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NaturalResistance: 0.05
   InfectionChance: 0.1
-  InfectionDevelopmentTime: 0.4
-  PriceModifier: 0.5
+  InfectionDevelopmentTime: 0.75
+  PriceModifier: 0.9
   InfectionColor: {r: 0.7901807, g: 1, b: 0, a: 1}
   InfectionVisibility:
     serializedVersion: 2

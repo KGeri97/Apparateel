@@ -55,7 +55,8 @@ public class CropInfection : MonoBehaviour
         if (!_isInfected || _infectionProgress == 1)
             return;
 
-        _infectionTimer.Update();
+        if (!_isSprayed)
+            _infectionTimer.Update();
         _infectionProgress = _infectionTimer.Progress;
 
         //Debug.Log(_infectionProgress);
@@ -67,7 +68,7 @@ public class CropInfection : MonoBehaviour
     }
 
     private void Infection() {
-        if (_isInfected)
+        if (_isInfected || _isSprayed)
             return;
 
         //Checking if crop gets infected. If not, return
