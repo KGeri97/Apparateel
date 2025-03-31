@@ -10,7 +10,8 @@ public class CursorIconChanger : MonoBehaviour
     private Texture2D _cursorTextureSpray;
     [SerializeField]
     private Texture2D _cursorTextureInspect;
-    [SerializeField]
+    //Flaticon https://www.flaticon.com/uicons
+    [SerializeField][Tooltip("https://www.flaticon.com/uicons")]
     private Texture2D _cursorTextureHarvest;
     [SerializeField]
     private Vector2 _hotSpot;

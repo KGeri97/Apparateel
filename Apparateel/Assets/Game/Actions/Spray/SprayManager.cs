@@ -133,7 +133,7 @@ public class SprayManager : MonoBehaviour, ICanAskYesNoQuestion {
             clickable.GetComponentInParent<CropInfection>().Spray(sprayData);
             Vector3 spawnLocation = Vector3.Lerp(clickable.transform.position, Camera.main.transform.position, 0.2f);
             MoneyPopUpManager.Instance.CreatePopUp(-GetModifiedSprayCost(_sprayData), spawnLocation);
-            //Music manager here
+            AudioManager.Instance.PlaySound(2);
         }
     }
 

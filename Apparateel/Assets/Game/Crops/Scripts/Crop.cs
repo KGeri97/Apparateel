@@ -66,7 +66,7 @@ namespace Apparateel.Crop {
                 Value = GetCropValue()
             });
             MoneyPopUpManager.Instance.CreatePopUp(GetCropValue());
-            //Music manager call here
+            AudioManager.Instance.PlaySound(4);
             gameObject.SetActive(false);
             //Destroy(gameObject);
         }
