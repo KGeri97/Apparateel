@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3de84a94f66a8d409646a07be2bfa31, type: 3}
   m_Name: SOEquipment
   m_EditorClassIdentifier: 
-  EquipmentName: gahgjhg
+  EquipmentName: SOEquipment
   ActionType: 0100000003000000
   StatModifiers:
   - StatModifier: 2

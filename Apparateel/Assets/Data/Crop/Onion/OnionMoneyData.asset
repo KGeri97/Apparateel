@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: abb157f8010d4db42bf6536e535c89a9, type: 3}
-  m_Name: PotatoMoneyData
+  m_Name: OnionMoneyData
   m_EditorClassIdentifier: 
-  BuyPrice: 1.2
+  BuyPrice: 0.8
   SellPrices:
   - Quality: 0
-    SellPrice: 3
+    SellPrice: 2
   - Quality: 1
-    SellPrice: 1.5
+    SellPrice: 1.8
   - Quality: 2
-    SellPrice: 1
+    SellPrice: 1.5
   - Quality: 3
-    SellPrice: 0.5
+    SellPrice: 1
   CropQuality: 0

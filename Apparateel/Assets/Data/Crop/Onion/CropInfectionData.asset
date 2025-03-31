@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18a1d084011cd7d4eb9eb476dc1b8d97, type: 3}
+  m_Name: CropInfectionData
+  m_EditorClassIdentifier: 
+  NaturalResistance: 0.2
+  InfectionChance: 0.15
+  InfectionDevelopmentTime: 0.7
+  PriceModifier: 0.7
+  InfectionColor: {r: 0.7634255, g: 0.9308176, b: 0.37759572, a: 1}
+  InfectionVisibility:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.104250506
+      outSlope: 0.104250506
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.8543332
+      value: 0.08906467
+      inSlope: 0.104834005
+      outSlope: 0.104834005
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.5508939
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 6.253556
+      outSlope: 6.253556
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

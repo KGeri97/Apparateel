@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be4c8442b9a9d554b963e7295c26191b, type: 3}
   m_Name: PotatoGrowthData
   m_EditorClassIdentifier: 
-  GrowthStages: 5
-  FullGrowthTime: 10
+  GrowthStages: 6
+  FullGrowthTime: 110
   BeginScale: {x: 0.1, y: 0.4, z: 0.1}
   EndScale: {x: 0.5, y: 2, z: 0.5}
   GrowthCurve:

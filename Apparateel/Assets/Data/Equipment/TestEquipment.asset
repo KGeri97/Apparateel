@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: TestEquipment
   m_EditorClassIdentifier: 
   EquipmentName: Test equipment
-  Cost: 10
+  ActionType: 03000000
   StatModifiers:
   - StatModifier: 1
     Value: 0.8
   - StatModifier: 2
     Value: 1.1
   ApplianceModifiers: []
-  ActionType: 03000000
+  Cost: 15

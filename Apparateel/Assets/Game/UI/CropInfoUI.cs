@@ -16,7 +16,9 @@ public class CropInfoUI : MonoBehaviour
     [SerializeField]
     private RectTransform _progressBar;
     [SerializeField]
-    private UITextSO _progressText;
+    private TMP_Text _progressText;
+    [SerializeField]
+    private UITextSO _progressTranslatedText;
     [SerializeField]
     private TMP_Text _cropName;
     [SerializeField]
@@ -114,6 +116,7 @@ public class CropInfoUI : MonoBehaviour
     }
 
     private void UpdateProgress() {
+        _progressText.text = $"{_progressTranslatedText.Translations[_langIndex].Text}:";
         _progressBar.localScale = new Vector3(_selectedCrop.CropGrowth.GetFullGrowthProgress(), 1, 1);
     }
 

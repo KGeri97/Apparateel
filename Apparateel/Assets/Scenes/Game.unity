@@ -3245,7 +3245,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _progressBar: {fileID: 1903382153}
-  _progressText: {fileID: 11400000, guid: 3ff735d4fdb3451498995d04d71a36ff, type: 2}
+  _progressText: {fileID: 2025796586}
+  _progressTranslatedText: {fileID: 11400000, guid: 3ff735d4fdb3451498995d04d71a36ff, type: 2}
   _cropName: {fileID: 2015898615}
   _cropText: {fileID: 11400000, guid: 7ddfc2cffbfe81a43984194854b73bb9, type: 2}
   _infectedText: {fileID: 1069755226}
