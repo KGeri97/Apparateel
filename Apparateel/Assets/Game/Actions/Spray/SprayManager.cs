@@ -50,7 +50,7 @@ public class SprayManager : MonoBehaviour, ICanAskYesNoQuestion {
 
     private void OnClick(object sender, InputManager.OnClickEventArgs e) {
         //Incorrect state
-        if (_gameManager.State != GameState.Spraying)
+        if (_gameManager.GameState != GameState.Spraying)
             return;
 
         Spray(_sprayData);
@@ -64,7 +64,7 @@ public class SprayManager : MonoBehaviour, ICanAskYesNoQuestion {
             _highlightedClickables = new();
         }
 
-        if (_gameManager.State != GameState.Spraying || e.Clickable == null)
+        if (_gameManager.GameState != GameState.Spraying || e.Clickable == null)
             return;
 
         Crop hoveredCrop = e.Clickable.GetComponentInParent<Crop>();

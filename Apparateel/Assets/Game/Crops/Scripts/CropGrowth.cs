@@ -43,7 +43,7 @@ public class CropGrowth : MonoBehaviour {
     }
 
     private void Update(){
-        if (_isGrowing) {
+        if (_isGrowing && GameManager.Instance.CycleState == CycleState.Growing) {
             _growthPeriodTimer.Update();
             _visuals.localScale = Vector3.Lerp(_currentBeginScale, _currentEndScale, _growthPeriodTimer.Progress);
         }

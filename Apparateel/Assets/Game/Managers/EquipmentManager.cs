@@ -53,6 +53,10 @@ namespace Apparateel.Equipment {
             _closeButton.onClick.AddListener(CloseUI);
         }
 
+        private void Start() {
+            GameManager.Instance.OnCycleStateChanged += RemoveRentedEquipments;
+        }
+
         private void OnDestroy() {
             _clickable.OnClick -= OnClick;
         }
@@ -75,8 +79,9 @@ namespace Apparateel.Equipment {
             }
         }
 
-        public void EquipmentPurchased(EquipmentData purchasedEquipment) {
+        public void EquipmentPurchased(EquipmentData purchasedEquipment, bool rented) {
             purchasedEquipment.IsPurchased = true;
+            purchasedEquipment.IsRented = rented;
             PurchasedEquipments.Add(purchasedEquipment);
             AvailableEquipments.Remove(purchasedEquipment);
 
@@ -84,6 +89,45 @@ namespace Apparateel.Equipment {
                 PurchasedEquipment = purchasedEquipment,
                 AvailableEquipments = _availableEquipments,
                 PurchasedEquipments = _purchasedEquipments});
+        }
+
+        private void RemoveRentedEquipments(object sender, GameManager.OnCycleStateChangedEventArgs e) {
+            if (e.NewState != CycleState.Planting)
+                return;
+
+            //Debug.Log("removing rented eq");
+
+            List<EquipmentData> temp = new();
+
+            foreach (EquipmentData equipment in _purchasedEquipments) {
+                if (!equipment.IsRented)
+                    continue;
+
+                temp.Add(equipment);
+            }
+
+            foreach (EquipmentData equipment in _activeEquipments) {
+                if (!equipment.IsRented)
+                    continue;
+
+                temp.Add(equipment);
+            }
+
+            foreach (EquipmentData equipment in temp) {
+                equipment.IsPurchased = false;
+                equipment.IsRented = false;
+                if (ActiveEquipments.Contains(equipment))
+                    ChangeActiveEquipment(equipment, false);
+
+                AvailableEquipments.Add(equipment);
+                PurchasedEquipments.Remove(equipment);
+
+                OnEquipmentPurchased?.Invoke(this, new() {
+                    PurchasedEquipment = null,
+                    AvailableEquipments = _availableEquipments,
+                    PurchasedEquipments = _purchasedEquipments
+                });
+            }
         }
 
         private void OnClick(object sender, EventArgs e) {

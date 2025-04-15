@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,12 +30,22 @@ namespace Apparateel.UI {
             _gameVisualManager = GameVisualManager.Instance;
 
             _gameManager.OnStateChanged += ChangeButtonColor;
+            _gameManager.OnCycleStateChanged += EnableButton;
             _deselectedColor = _gameVisualManager.UIButtonDeselectedColor;
             _selectedColor = _gameVisualManager.UIButtonSelectedColor;
         }
 
+        private void EnableButton(object sender, GameManager.OnCycleStateChangedEventArgs e) {
+            if (e.NewState == CycleState.Planting)
+                _plantButton.interactable = _state == GameState.Planting ? true : false;
+            else if (e.NewState == CycleState.Growing)
+                _plantButton.interactable = _state == GameState.Spraying || _state == GameState.Inspecting ? true : false;
+            else if (e.NewState == CycleState.Harvesting)
+                _plantButton.interactable = _state == GameState.Harvesting ? true : false;
+        }
+
         private void OnClick() {
-            if (_gameManager.State != _state)
+            if (_gameManager.GameState != _state)
                 _gameManager.ChangeGameState(_state);
             else
                 _gameManager.ChangeGameState(GameState.Running);

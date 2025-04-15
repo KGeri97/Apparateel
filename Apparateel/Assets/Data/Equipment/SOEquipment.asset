@@ -23,3 +23,4 @@ MonoBehaviour:
   - Action: 3
     Method: 3
   Cost: 10
+  RentCost: 2

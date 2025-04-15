@@ -90,7 +90,7 @@ public class CropInfoUI : MonoBehaviour
             return;
         }
 
-        if (_gameManager.State != GameState.Inspecting)
+        if (_gameManager.GameState != GameState.Inspecting)
             return;
 
         _cropInfoUI.SetActive(true);

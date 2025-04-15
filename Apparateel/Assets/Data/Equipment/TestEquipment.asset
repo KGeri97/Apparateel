@@ -21,3 +21,4 @@ MonoBehaviour:
     Value: 1.1
   ApplianceModifiers: []
   Cost: 15
+  RentCost: 3

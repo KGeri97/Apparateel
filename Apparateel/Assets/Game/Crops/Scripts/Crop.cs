@@ -52,7 +52,7 @@ namespace Apparateel.Crop {
         }
 
         private void OnClickEvent(object sender, EventArgs e) {
-            if (!IsGrowing && _gameManager.State == GameState.Harvesting) {
+            if (!IsGrowing && _gameManager.GameState == GameState.Harvesting) {
                 HarvestCrop();
                 return;
             }

@@ -18,13 +18,18 @@ public class EquipmentVisualizer : MonoBehaviour
     [SerializeField]
     private TMP_Text _costField;
     [SerializeField]
+    private TMP_Text _rentCostField;
+    [SerializeField]
     private Button _activeButton;
     [SerializeField]
     private Button _purchaseButton;
+    [SerializeField]
+    private Button _rentButton;
 
     public void SetEquipment(EquipmentData equipment) {
         _activeButton.onClick.AddListener(OnActiveButtonClick);
         _purchaseButton.onClick.AddListener(OnPurchaseButtonClick);
+        _rentButton.onClick.AddListener(OnRentButtonClick);
 
         _equipment = equipment;
 
@@ -63,13 +68,16 @@ public class EquipmentVisualizer : MonoBehaviour
         }
 
         _costField.text = $"Cost: {_equipment.Data.Cost.ToString()}";
+        _rentCostField.text = $"Rent: {_equipment.Data.RentCost.ToString()}";
 
         if (!_equipment.IsPurchased) {
             _purchaseButton.gameObject.SetActive(true);
+            _rentButton.gameObject.SetActive(true);
             _activeButton.gameObject.SetActive(false);
         }
         else {
             _purchaseButton.gameObject.SetActive(false);
+            _rentButton.gameObject.SetActive(false);
             _activeButton.gameObject.SetActive(true);
 
             if (_equipment.IsActive) {
@@ -98,9 +106,24 @@ public class EquipmentVisualizer : MonoBehaviour
             return;
 
         _purchaseButton.gameObject.SetActive(false);
+        _rentButton.gameObject.SetActive(false);
         _activeButton.gameObject.SetActive(true);
         _activeButton.image.color = Color.red;
 
-        EquipmentManager.Instance.EquipmentPurchased(_equipment);
+        EquipmentManager.Instance.EquipmentPurchased(_equipment, false);
+    }
+
+    private void OnRentButtonClick() {
+        if (!MoneyManager.Instance.ItemPurchased(_equipment.Data.RentCost))
+            return;
+
+        _purchaseButton.gameObject.SetActive(false);
+        _rentButton.gameObject.SetActive(false);
+        _activeButton.gameObject.SetActive(true);
+        _activeButton.image.color = Color.red;
+
+        _equipment.IsRented = true;
+
+        EquipmentManager.Instance.EquipmentPurchased(_equipment, true);
     }
 }

@@ -45,7 +45,7 @@ public class DirtMound : MonoBehaviour
     }
 
     private void OnClickEvent(object sender, System.EventArgs e) {
-        switch (_gameManager.State) {
+        switch (_gameManager.GameState) {
             case GameState.Planting:
                 PlantCrop();
                 break;

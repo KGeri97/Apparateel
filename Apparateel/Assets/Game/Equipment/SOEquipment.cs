@@ -11,5 +11,6 @@ namespace Apparateel.Equipment {
         public List<EquipmentStatModifier> StatModifiers;
         public List<EquipmentApplianceModifier> ApplianceModifiers;
         public int Cost;
+        public int RentCost;
     }
 }

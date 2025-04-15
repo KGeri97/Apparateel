@@ -10,6 +10,7 @@ namespace Apparateel.Equipment {
         public SOEquipment Data;
         public bool IsActive;
         public bool IsPurchased;
+        public bool IsRented;
 
         public float GetStatModifier(ModifiableStats statModifier) {
             float modifier = Data.StatModifiers
